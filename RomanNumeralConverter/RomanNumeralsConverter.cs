@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -7,7 +6,7 @@ namespace RomanNumeralConverter
 {
     internal class RomanNumeralsConverter
     {
-        private readonly IDictionary<int, string> equivalences = new Dictionary<int, string>()
+        private readonly IDictionary<int, string> _equivalences = new Dictionary<int, string>()
         {
             {1, "I" },
             {5, "V" },
@@ -31,14 +30,14 @@ namespace RomanNumeralConverter
         {
             var result = new StringBuilder();
 
-            var arabicValues = equivalences.OrderByDescending(pair => pair.Key).Select(pair => pair.Key).ToArray();
+            var arabicValues = _equivalences.OrderByDescending(pair => pair.Key).Select(pair => pair.Key).ToArray();
 
             for (var index = 0; index < arabicValues.Count(); index++)
             {
                 var currentArabicValue = arabicValues[index];
                 while (valueToConvert >= currentArabicValue)
                 {
-                    result.Append(equivalences[currentArabicValue]);
+                    result.Append(_equivalences[currentArabicValue]);
                     valueToConvert -= currentArabicValue;
                 }
 
@@ -59,8 +58,8 @@ namespace RomanNumeralConverter
                 return valueToConvert;
             }
 
-            result.Append(equivalences[specialCaseValue]);
-            result.Append(equivalences[currentArabicValue]);
+            result.Append(_equivalences[specialCaseValue]);
+            result.Append(_equivalences[currentArabicValue]);
             valueToConvert -= currentArabicValue - specialCaseValue;
 
             return valueToConvert;
